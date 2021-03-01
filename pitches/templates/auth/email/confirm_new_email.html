@@ -1,0 +1,14 @@
+{{ _('Dear') }} <b>{{ user.username }}</b>,
+<p>
+    {{ _('You have changed your email for <b>Leons pitches</b> account.') }}
+    <br>{{ _('To verify new email') }} <a href="{{ url_for('auth.confirm_new_email', token=token, _external=True) }}">{{ _('click here') }}</a>.
+    <br>{{ _('paste the following on your url bar:') }}
+    <br>{{ url_for('auth.confirm_new_email', token=token, _external=True) }}
+</p>
+<p>
+    {{ _('Hope that helps') }},
+    <br>{{ _('Leon Dante') }}
+</p>
+<p>
+    <small>{{ _('responses are unmonitored') }}</small>
+</p>

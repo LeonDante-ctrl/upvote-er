@@ -1,0 +1,9 @@
+{{ _('Dear') }} {{ user.username }},
+
+{{ _('Email successfully changed') }}
+{{ _('Confirm by clicking on the following:') }}
+{{ url_for('auth.confirm_new_email', token=token, _external=True) }}
+
+{{ _('Hope that helps') }},
+{{ _('Leon Dante') }}
+

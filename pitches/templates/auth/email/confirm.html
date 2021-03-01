@@ -1,0 +1,14 @@
+{{ _('Dear') }} <b>{{ user.username }}</b>,
+<p>
+    {{ _('Welcome to <b>pitches site</b>!') }}
+    <br>{{ _('Verify your account:') }} <a href="{{ url_for('auth.confirm', token=token, _external=True) }}">{{ _('click here') }}</a>.
+    <br>{{ _('or click on this right here') }}
+    <br>{{ url_for('auth.confirm', token=token, _external=True) }}
+</p>
+<p>
+    {{ _('Hope that helps') }},
+    <br>{{ _('Leon Dante') }}
+</p>
+<p>
+    <small>{{ _('responses are unmonitored') }}</small>
+</p>

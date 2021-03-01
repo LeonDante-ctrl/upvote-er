@@ -1,0 +1,10 @@
+{{ _('Dear') }} {{ user.username }},
+
+{{ _('Welcome to Leons pitches') }}
+{{ _('Verify by clicking on the following:') }}
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+{{ _('Hope that helps') }},
+{{ _('Leon Dante') }}
+
+{{ _('responses are unmonitored') }}
