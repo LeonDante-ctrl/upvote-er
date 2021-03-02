@@ -97,7 +97,7 @@ def create_topic(topic_group_id):
         if with_poll:
             poll_answers = form.poll_answers.strip().splitlines()
             new_topic.update_poll_answers(poll_answers)
-        flash(lazy_gettext('The pitch has been created.'))
+        flash(lazy_gettext('The pitch has been declared'))
         return redirect(url_for('main.topic', topic_id=new_topic.id))
 
     elif not with_poll and form.add_poll.data:
@@ -107,13 +107,13 @@ def create_topic(topic_group_id):
                                   author=current_user._get_current_object())
                 db.session.add(new_topic)
                 db.session.commit()
-                flash(lazy_gettext('Pitch has been saved'))
+                flash(lazy_gettext('Pitch has been backed up'))
                 return redirect(url_for('main.edit_topic', topic_id=new_topic.id, poll=1))
         else:
             return redirect(url_for('main.create_topic', topic_group_id=topic_group_id, poll=1))
 
     elif form.cancel.data:
-        flash(lazy_gettext('Pitch creation was cancelled.'))
+        flash(lazy_gettext('Pitch creation was terminated.'))
         return redirect(url_for('main.topic_group', topic_group_id=topic_group_id))
 
     return render_template('create_topic.html', form=form, topic_group=t_group)
@@ -142,7 +142,7 @@ def edit_topic(topic_id):
             tpc.update_poll_answers(form.poll_answers.data.strip().splitlines())
         tpc.updated_at = datetime.utcnow()
         db.session.add(tpc)
-        flash(lazy_gettext('The pitch has been updated.'))
+        flash(lazy_gettext('The pitch has been renewed'))
         return redirect(url_for('main.topic', topic_id=tpc.id))
 
     elif not with_poll and form.add_poll.data and form.validate_on_submit():
@@ -152,11 +152,11 @@ def edit_topic(topic_id):
         tpc.body = form.body.data
         tpc.updated_at = datetime.utcnow()
         db.session.add(tpc)
-        flash(lazy_gettext('The pitch has been saved. Fill data for a poll.'))
+        flash(lazy_gettext('fill in information for a poll'))
         return redirect(url_for('main.edit_topic', topic_id=tpc.id, poll=1))
 
     elif form.cancel.data:
-        flash(lazy_gettext('Pitch editing was cancelled.'))
+        flash(lazy_gettext('Pitch editing was terminated.'))
         return redirect(url_for('main.topic', topic_id=tpc.id))
 
     elif form.delete.data:
@@ -166,7 +166,7 @@ def edit_topic(topic_id):
         tpc.deleted = True
         tpc.updated_at = datetime.utcnow()
         db.session.add(tpc)
-        flash(lazy_gettext('The pitch has been deleted.'))
+        flash(lazy_gettext('The pitch has been wiped out.'))
         return redirect(url_for('main.topic_group', topic_group_id=tpc.group_id))
 
     if not form.is_submitted():
@@ -208,11 +208,11 @@ def create_topic_group(topic_group_id):
                                  author=current_user._get_current_object(), group=t_group)
         db.session.add(new_t_group)
         db.session.commit()
-        flash(lazy_gettext('The pitch group has been created.'))
+        flash(lazy_gettext('The pitch collection has been instanciated.'))
         return redirect(url_for('main.topic_group', topic_group_id=new_t_group.id))
 
     elif form.cancel.data:
-        flash(lazy_gettext('pitch group creation was cancelled.'))
+        flash(lazy_gettext('pitch group instance was terminated.'))
         return redirect(url_for('main.topic_group', topic_group_id=topic_group_id))
 
     return render_template('create_topic_group.html', form=form, topic_group=t_group)
@@ -243,22 +243,22 @@ def edit_topic_group(topic_group_id):
         t_group.protected = form.protected.data
         t_group.updated_at = datetime.utcnow()
         db.session.add(t_group)
-        flash(lazy_gettext('The pitch group has been updated.'))
+        flash(lazy_gettext('The pitch group has been renewed.'))
         return redirect(url_for('main.topic_group', topic_group_id=topic_group_id))
 
     elif form.cancel.data:
-        flash(lazy_gettext('pitch group editing was cancelled.'))
+        flash(lazy_gettext('pitch group editing was terminated.'))
         return redirect(url_for('main.topic_group', topic_group_id=topic_group_id))
 
     elif form.delete and form.delete.data:
         if t_group.topics.filter_by(deleted=False).first() or t_group.topic_groups.filter_by(deleted=False).first():
-            flash(lazy_gettext('The pitch group is not deleted. Only empty pitch group can be deleted.'))
+            flash(lazy_gettext('Only empty pitch group can be deleted.'))
             return redirect(url_for('main.topic_group', topic_group_id=topic_group_id))
         else:
             t_group.deleted = True
             t_group.updated_at = datetime.utcnow()
             db.session.add(t_group)
-            flash(lazy_gettext('The pitch group has been deleted.'))
+            flash(lazy_gettext('The pitch group has been wiped out.'))
             return redirect(url_for('main.topic_group', topic_group_id=t_group.group_id))
 
     if not form.is_submitted():
