@@ -1,0 +1,1 @@
+web: guniorn manage:app
