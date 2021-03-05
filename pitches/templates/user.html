@@ -32,7 +32,7 @@
             {{ _('Member since') }}: {{ format_datetime(user.created_at, 'd MMMM YYYY') }}
         </p>
         <p>
-            {{ _('Last seen') }}: {{ format_timedelta(user.last_seen) }} {{ _('ago') }}
+            {{ _('Last seen on') }}: {{ format_timedelta(user.last_seen) }} {{ _('ago') }}
         </p>
         <p>
             {{ _('Pitches activity') }}: {{ _('topics') }} {{ topics_count }}, {{ _('comments') }} {{ comments_count }}
