@@ -18,7 +18,7 @@ def get_topic_group(topic_group_id):
     page = request.args.get('page', 1, type=int)
     t_group = TopicGroup.query.filter_by(id=topic_group_id, deleted=False).first_or_404()
 
-    if page == 1 or not current_app.config['TOPIC_GROUPS_ONLY_ON_1ST_PAGE']:
+    if page == 1 or not current_app.config['TOPIC_GROUPS_ONLY_ON_TOP_PAGE']:
         t_groups = TopicGroup.query.with_entities(
             TopicGroup, func.sum(case([(Topic.deleted == False, 1)], else_=0))).outerjoin(
             Topic, TopicGroup.id == Topic.group_id).filter(
@@ -53,7 +53,7 @@ def topic(topic_id):
     form = CommentForm(current_user) if current_user.can(Permission.PARTICIPATE) else None
     if form and form.validate_on_submit():
         tpc.add_comment(current_user, form.body.data)
-        flash(lazy_gettext('Your comment has been published.'))
+        flash(lazy_gettext('Your comment has been pushed foward.'))
         return redirect(url_for('main.topic', topic_id=topic_id, page=-1, _anchor='comment-last'))
 
     page = request.args.get('page', 1, type=int)
