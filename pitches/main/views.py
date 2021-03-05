@@ -470,7 +470,7 @@ def edit_comment(comment_id):
         return redirect(request.args.get('next') or url_for('main.topic', topic_id=comment.topic_id))
 
     elif form.cancel.data:
-        flash(lazy_gettext('Comment editing was cancelled.'))
+        flash(lazy_gettext('Comment editing was omitted .'))
         return redirect(request.args.get('next') or url_for('main.topic', topic_id=comment.topic_id))
 
     elif form.delete.data:
